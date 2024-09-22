@@ -46,7 +46,7 @@ def add_memory_feature(
         columns_id: list[str]= ["Store", "Dept", "Date"],
         back_horizon: int= 52,
         lags: list[int]= [1,2,3], # USO LA TARGET DE HACE 52 SEMANAS, 53, 54
-        aggregation_windows: list[int]= [3,4,5] #  USO UN GRUPO DE TARGET DE HACE 52 SEMANAS
+        aggregation_windows: list[int]= [3,4] #  USO UN GRUPO DE TARGET DE HACE 52 SEMANAS [3,4, 5]
     ) -> pd.DataFrame:
     #data = data_df[columns_id + [target,]].copy()
     data = data_df.copy()

@@ -5,8 +5,12 @@ import plotly.io as pio
 import plotly.express as px
 import plotly.graph_objs as go
 
-def view_data_horizon(data_df: pd.DataFrame, store: int= 1, dept: int= 0, target: str="Weekly_Sales", back_horizon: int= 52):
-    plot_df = data_df[(data_df["Store"] == 1) & (data_df["Dept"] == 1)].copy()
+def view_data_horizon(
+        data_df: pd.DataFrame, store: int= 1, 
+        dept: int= 1, target: str="Weekly_Sales", 
+        back_horizon: int= 52, 
+    ):
+    plot_df = data_df[(data_df["Store"] == store) & (data_df["Dept"] == dept)].copy()
     plot_df[f"lag_{back_horizon}_{target}"] = plot_df.groupby(["Store", "Dept"])[target].shift(back_horizon)
     plot_df.set_index("Date", inplace=True)
     plot_df.sort_values("Date", ascending=True, inplace=True)

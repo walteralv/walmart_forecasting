@@ -18,8 +18,7 @@ class GlobalPipeline:
         ])
 
         categorical_pipeline = Pipeline(steps=[
-            #('imputer', SimpleImputer(strategy='most_frequent')),  
-            ('onehot', OneHotEncoder(handle_unknown='ignore'))  
+            ('onehot', OneHotEncoder(handle_unknown='ignore'))
         ])
 
         self.preprocessor = ColumnTransformer(
@@ -28,6 +27,8 @@ class GlobalPipeline:
                 ('cat', categorical_pipeline, categorical_cols)
             ]
         )
+        self.numerical_cols = numerical_cols
+        self.categorical_cols = categorical_cols
     
     def fit(self, data: pd.DataFrame | np.ndarray) -> None:
         """learn the transformations
@@ -67,3 +68,17 @@ class GlobalPipeline:
             ColumnTransformer: ColumnTransformer
         """
         return self.preprocessor
+    
+    def get_final_columns(self) -> list[str]:
+        """Return the final columns after transformation.
+
+        Returns:
+            list[str]: List of final column names after transformation.
+        """
+        # Obtén los nombres de las columnas transformadas
+        transformed_num_cols = self.numerical_cols  # Columnas numéricas no cambian
+        transformed_cat_cols = self.preprocessor.named_transformers_['cat']['onehot'].get_feature_names_out(self.categorical_cols)
+
+        # Combina ambas listas
+        final_columns = np.concatenate([transformed_num_cols, transformed_cat_cols]).tolist()
+        return final_columns

@@ -64,3 +64,5 @@ def add_memory_feature(
             data[f"l_{lag}_w_{w}_min_{target}"] = data.groupby(["Store", "Dept"])[target].shift(memory).rolling(window=w).min()
     data.sort_values(by=columns_id, ascending=True, inplace=True)
     return data
+
+# join con fechas pasadas 

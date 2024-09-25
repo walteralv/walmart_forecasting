@@ -15,6 +15,10 @@ tscv = TimeSeriesSplit(n_splits=5)
 def weighted_mae(y_true, y_pred, weights):
     return np.sum(weights * np.abs(y_true - y_pred)) / np.sum(weights)
 
+    """def WMAE(dataset, real, predicted):
+    weights = dataset.IsHoliday.apply(lambda x: 5 if x else 1)
+    return np.round(np.sum(weights*abs(real-predicted))/(np.sum(weights)), 2)
+    """
 
 def evaluate_models(models, X_train: np.ndarray, y_train: np.ndarray):
     tscv = TimeSeriesSplit(n_splits=5)

@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error, make_scorer
 from sklearn.pipeline import Pipeline
 from tqdm import tqdm
 import pandas as pd
-
+#ot
 tscv = TimeSeriesSplit(n_splits=5)
 
 def weighted_mae(y_true, y_pred, weights):
@@ -50,6 +50,10 @@ def evaluate_models(models, X_train: np.ndarray, y_train: np.ndarray):
             
             train_errors.append(train_wmae)
             val_errors.append(val_wmae)
+            #calculo la media de los errores 
+
+
+
             
             print(f'{name} - Split {i+1} - WMAE entrenamiento: {train_wmae:.4f}, WMAE validación: {val_wmae:.4f}')
         
@@ -64,7 +68,9 @@ def evaluate_models(models, X_train: np.ndarray, y_train: np.ndarray):
         plt.show()
         
         avg_val_wmae = np.mean(val_errors)
+        #sacar la std
         wmae_results.append({'model': name, 'WMAE promedio': avg_val_wmae})
+
         
         if avg_val_wmae < best_score:
             best_score = avg_val_wmae

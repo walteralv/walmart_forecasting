@@ -12,8 +12,6 @@ from sklearn.preprocessing import StandardScaler
 from utils.general import difference_list, intersect_list
 from utils.ts_utils import darts_metrics_adapter, forecast_bias
 
-# from category_encoders import OneHotEncoder
-
 
 @dataclass
 class MissingValueConfig:
